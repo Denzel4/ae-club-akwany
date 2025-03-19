@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+  - name: github
+    database: analytics-engineers-club 
+    tables:
+      - name: pull_request
+        columns:
+          - name: id 
+            description: "This is not pull request number"
+            tests:
+              - unique
+              - not_null
+
+      - name: issue
+        description : "This table contains both issues and pull requests"
+        columns:
+          - name: id 
+            tests:
+              - unique
+              - not_null
+      - name: repository
+
+      - name: issue_merged
+        description : ""
+        columns:
+          - name: issue_id 
+            tests:
+              - unique
+              - not_null
+
