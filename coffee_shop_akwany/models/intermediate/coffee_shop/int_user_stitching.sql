@@ -1,19 +1,20 @@
 with pageviews as (
-    select  * from {{ source('web_tracking','pageviews') }}
+    select * 
+    from {{ source('web_tracking', 'pageviews') }}
 ),
 
 customer_stitching as (
-    -- a single visitor_id per customer_id
+    -- Assign a single visitor_id per customer_id using array_agg()
     select 
         customer_id,
-        min(visitor_id) as stitched_visitor_id
+        array_agg(visitor_id order by visitor_id limit 1)[safe_offset(0)] as stitched_visitor_id
     from pageviews
     where customer_id is not null
     group by customer_id
 )
 
 select 
-    p.id,
+    distinct p.id,
     coalesce(cs.stitched_visitor_id, p.visitor_id) as visitor_id, -- Use stitched visitor_id when available
     p.device_type,
     p.timestamp,
