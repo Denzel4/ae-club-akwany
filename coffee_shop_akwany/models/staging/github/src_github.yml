@@ -28,4 +28,9 @@ sources:
             tests:
               - unique
               - not_null
-
+  - name: web_tracking
+    project: analytics-engineers-club
+    tables:
+    - name: pageviews
+      description: "Model that stitches visitor_id based on customer_id."
+      
