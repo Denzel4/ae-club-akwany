@@ -1,0 +1,22 @@
+version: 2
+#this is considered to be generic test
+models:
+
+  - name: int_user_stitching   # model name
+    description: "Model that stitches visitor_id based on customer_id."
+    columns:
+      - name: id
+        tests:
+          - not_null
+
+      - name: visitor_id
+        tests:
+          - not_null
+
+      - name: customer_id
+        description: "Customer should not have multiple visitor_ids."
+        tests:
+          - not_null
+          - unique
+        
+              
