@@ -1,6 +1,7 @@
 version: 2
 #this is considered to be generic test
 models:
+
   - name: int_user_stitching   # model name
     description: "Model that stitches visitor_id based on customer_id."
     columns:
@@ -15,5 +16,7 @@ models:
       - name: customer_id
         description: "Customer should not have multiple visitor_ids."
         tests:
-          - dbt_utils.unique_combination_of_columns:
-              combination_of_columns: ["customer_id", "visitor_id"]
+          - not_null
+          - unique
+        
+              
